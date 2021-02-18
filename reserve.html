@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Place favicon.ico in the root directory -->
+
+
+    <meta name="theme-color" content="#fafafa" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div class="jumbotron">
+      <h1 class="text-center">Hot Restaurant</h1>
+      <hr />
+      <h2 class="text-center">Make Your Reservation Here</h2>
+      <br />
+      <div class="text-center">
+        <button class="btn">View Tables</button>
+        <button class="btn">Home</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <form>
+          <div class="form-group">
+            <label for="reserve-name">Name</label>
+            <input type="text" class="form-control" id="reserve-name" />
+          </div>
+          <div class="form-group">
+            <label for="reserve-name">Phone Number</label>
+            <input type="text" class="form-control" id="reserve-phone" />
+          </div>
+          <div class="form-group">
+            <label for="reserve-name">Email</label>
+            <input type="text" class="form-control" id="reserve-email" />
+          </div>
+          <div class="form-group">
+            <label for="reserve-name">Unique ID</label>
+            <input type="text" class="form-control" id="reserve-id" />
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="">API Table Link</a> |
+      <a href="">API Wait List</a>
+    </div>
+
+    <script type="text/javascript">
+        const submitBtn = document.getElementById('submit-button');
+
+        // add button click for submit button
+        submitBtn.addEventListener('click', (e) => {
+
+            // get values from form
+            let guestName = document.getElementById('reserve-name').value.trim();
+            let guestPhone = document.getElementById('reserve-phone').value.trim();
+            let guestEmail = document.getElementById('reserve-email').value.trim();
+            let guestID = document.getElementById('reserve-id').value.trim();
+
+
+
+
+        
+
+            // set values into a new object
+
+            let newGuest = {
+                name: guestName, 
+                phone: guestPhone, 
+                email: guestEmail, 
+                uniqueid: guestID
+            };
+            
+            console.log(newGuest);
+            
+            // fetch 
+
+            fetch('api/reservations', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newGuest), 
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('reserve.html', data);
+                alert(`Adding Guest: ${data.name}`);
+            })
+            .catch((error) => {
+                console.error('Error: ', error);
+            });
+
+        })
+
+
+    </script>
+
+  </body>
+</html>
